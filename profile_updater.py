@@ -22,13 +22,57 @@ class ProfileUpdater:
         if self.config.use_subdirs:
             base_dir = base_dir / fir_code
         
+        # Update observer callsign in profile definition files
+        self._update_observer_callsign(fir_code, base_dir)
+
         # Find and update all .prf files
         for prf_file in base_dir.rglob('*.prf'):
             print(f"   Processing {prf_file.name}")
             self._update_profile_file(prf_file, package_info)
-        
+
         # Update Hoppie code if available
         self._update_hoppie_code(package_info, base_dir)
+
+    def _update_observer_callsign(self, fir_code: str, base_dir: Path):
+        """Update observer callsign in profile definition files"""
+        print("   Setting observer callsign...")
+
+        if not self.config.initials:
+            print("      ⚠️  No initials configured, skipping observer callsign update")
+            return
+
+        # Look for profile definition files (German: "Profil")
+        settings_dir = base_dir / fir_code / "Settings"
+        if not settings_dir.exists():
+            print(f"      ⚠️  Settings directory not found: {settings_dir}")
+            return
+
+        profile_files = list(settings_dir.rglob("*Profil*.txt"))
+
+        if not profile_files:
+            print("      ⚠️  No profile definition files found")
+            return
+
+        observer_callsign = self.config.observer_callsign
+
+        for profile_file in profile_files:
+            try:
+                with open(profile_file, 'r', encoding='iso-8859-1') as f:
+                    content = f.read()
+
+                # Replace PROFILE:.*_OBS: with PROFILE:ABC_OBS: (where ABC is initials)
+                pattern = r'PROFILE:.+_OBS:'
+                replacement = f'PROFILE:{observer_callsign}:'
+
+                new_content = re.sub(pattern, replacement, content)
+
+                if new_content != content:
+                    with open(profile_file, 'w', encoding='iso-8859-1') as f:
+                        f.write(new_content)
+                    print(f"      ✓ Updated observer callsign to {observer_callsign} in {profile_file.name}")
+
+            except Exception as e:
+                print(f"      ⚠️  Error updating observer callsign in {profile_file.name}: {e}")
     
     def _update_profile_file(self, prf_file: Path, package_info: Dict[str, str]):
         """Update individual profile file"""

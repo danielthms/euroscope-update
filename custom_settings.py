@@ -28,7 +28,7 @@ class CustomSettings:
         
         # Set VCCS Mini position for all profiles
         self.update_all_profiles(base_dir, {
-            'TsVccsMiniControlX': '1529',
+            'TsVccsMiniControlX': '2181',
             'TsVccsMiniControlY': '26'
         })
         
@@ -60,37 +60,53 @@ class CustomSettings:
     # ============================================================================
     
     def _apply_edgg_settings(self, base_dir: Path):
-        """EDGG-specific settings - modify as you like!"""
-        
-        # Screen settings
+
+        ##### LANGEN RADAR #####
         self.update_file(base_dir / "EDGG/Settings/EDGG/EDGG_Screen.txt", {
             'm_ScreenNumber': '0',
-            'm_ScreenPosition': '6',
+            'm_ScreenPosition': '0',
             'm_ScreenMaximized': '0',
             'm_MetarListX': '1431',
             'm_MetarListY': '45',
             'm_ControllerListX': '1536',
             'm_ControllerListY': '232'
         })
-        
+
+        self.update_file(base_dir / "EDGG/Plugins/Topsky/EDGG/TopSkySettings.txt", {
+            'Window_QNHTL': '0,1422,974',
+            'Window_CARD': '0,1350,1180',
+            'Window_LFUNCFP': '0,1536,45',
+            'Window_CPDLC_Current': '0,0,650',
+            'Window_CPDLC_Setting': '1,0,650'
+        }, delimiter='=')
+
+        ##### PHX #####
         self.update_file(base_dir / "EDGG/Settings/PHX/PHX_Screen.txt", {
             'm_ScreenNumber': '0',
-            'm_ScreenPosition': '6',
+            'm_ScreenPosition': '0',
             'm_ScreenMaximized': '0',
-            'm_MetarListX': '1431',
+            'm_MetarListX': '713',
+            'm_ControllerListX': '713',
+            'm_ControllerListY': '77',
             'm_MetarListY': '45',
-            'm_ControllerListX': '1574',
-            'm_ControllerListY': '45'
+            'm_VoiceListX': '1857',
+            'm_VoiceListY': '381'
         })
-        
-        # TopSky window positions
-        self.update_file(base_dir / "EDGG/Plugins/Topsky/EDGG/TopSkySettings.txt", {
-            'Window_QNHTL': '3,1422,974',
-            'Window_CARD': '3,1350,1180',
-            'Window_LFUNCFP': '3,1536,45',
-            'Window_CPDLC_Current': '1,0,650',
-            'Window_CPDLC_Setting': '1,368,650'
-        }, delimiter='=')
+
+        self.update_file(base_dir / "EDGG/Settings/PHX/PHX_Symbology_Night.txt", {
+            'Datablock:AC list background': '0:3.2:0:0:7',
+            'Other:list header': '11447982:3.5:0:0:7',
+            'Controller:normal': '16777215:3.5:0:0:7',
+            'Controller:breaking': '4227327:3.5:0:0:7',
+            'Controller:timeout': '255:4.0:0:0:7',
+            'Metar:normal': '11447982:3.5:0:0:7',
+            'Metar:modified': '33023:3.5:0:0:7',
+            'Metar:timeout': '255:3.5:0:0:7',
+            'Other:freetext': '8454143:3.5:0:1:7',
+            'Chat:background': '0:3.5:0:0:7',
+            'Chat:name normal': '10790052:3.5:0:0:7',
+            'Chat:name unread': '16777215:3.5:0:0:7'
+        })
         
         # Set active airports by sectors
         self.update_file(base_dir / "EDGG/Settings/EDGG_General.txt", {
