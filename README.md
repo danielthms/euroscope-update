@@ -1,4 +1,4 @@
-# EuroScope AIRAC Updater (Python)
+# EuroScope AIRAC Updater
 
 A modular Python tool for automatically updating EuroScope AIRAC packages with **completely customizable** preferences and user settings.
 
