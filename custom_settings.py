@@ -1,8 +1,3 @@
-"""
-Custom Settings and Preferences for EuroScope Updater
-Simple, direct approach - customize whatever you want!
-"""
-
 import re
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -20,7 +15,6 @@ class CustomSettings:
         base_dir = self._get_base_dir(package_info)
 
         # Apply your custom settings here!
-        # Uncomment and modify the sections you want to use
 
         # ========================================
         # GENERAL SETTINGS (All FIRs)
@@ -48,7 +42,6 @@ class CustomSettings:
             self._apply_edxx_settings(base_dir)
         elif fir_code == "EXCXO":
             self._apply_excxo_settings(base_dir)
-        # Add your own FIR here!
 
         print(f"   ✓ Applied custom settings for {fir_code}")
 
@@ -66,7 +59,7 @@ class CustomSettings:
                 "m_ScreenMaximized": "0",
                 "m_MetarListX": "1431",
                 "m_MetarListY": "44",
-                "m_ControllerListX": "2425", 
+                "m_ControllerListX": "2425",
                 "m_ControllerListY": "44",
             },
         )
@@ -173,7 +166,7 @@ class CustomSettings:
             r"Traffic Management List 2/m_Y:\d+",
             "Traffic Management List 2/m_Y:1005",
         )
-        
+
         # ===== General Settings - Set active airports by sectors =====
         self.update_file(
             base_dir / "EDGG/Settings/EDGG/EDGG_General.txt",
@@ -195,35 +188,35 @@ class CustomSettings:
             r"&depfreq=",
             "&atistype=&depfreq=",
         )
-        
+
         # ===== GRP Plugin Settings =====
         grp_maps_file = base_dir / "EDGG/Plugins/GRP/TWR_PHX_NIGHT/GRpluginMaps.txt"
         if grp_maps_file.exists():
             try:
-                with open(grp_maps_file, 'r', encoding='iso-8859-1') as f:
+                with open(grp_maps_file, "r", encoding="iso-8859-1") as f:
                     content = f.read()
-                
+
                 # Disable Leadin Lines for EDDL
                 content = re.sub(
-                    r'(MAP:Leadin Lines\s+AIRPORT:EDDL\s+FOLDER:Airport Layout\s+ACTIVE:)1',
-                    r'\g<1>0',
+                    r"(MAP:Leadin Lines\s+AIRPORT:EDDL\s+FOLDER:Airport Layout\s+ACTIVE:)1",
+                    r"\g<1>0",
                     content,
-                    flags=re.MULTILINE
+                    flags=re.MULTILINE,
                 )
-                
+
                 # Disable Checkpoint 1 for EDDL
                 content = re.sub(
-                    r'(MAP:Checkpoint 1\s+AIRPORT:EDDL\s+FOLDER:Labels\s+ACTIVE:)1',
-                    r'\g<1>0',
+                    r"(MAP:Checkpoint 1\s+AIRPORT:EDDL\s+FOLDER:Labels\s+ACTIVE:)1",
+                    r"\g<1>0",
                     content,
-                    flags=re.MULTILINE
+                    flags=re.MULTILINE,
                 )
-                
-                with open(grp_maps_file, 'w', encoding='iso-8859-1') as f:
+
+                with open(grp_maps_file, "w", encoding="iso-8859-1") as f:
                     f.write(content)
-                    
+
                 print(f"      ✓ Updated GRP plugin maps - disabled EDDL features")
-                
+
             except Exception as e:
                 print(f"      ⚠️  Error updating GRP plugin maps: {e}")
 
@@ -273,7 +266,7 @@ class CustomSettings:
                 base_dir / screen_file,
                 {
                     "m_ScreenNumber": "0",
-                    "m_ScreenPosition": "6",
+                    "m_ScreenPosition": "0",
                     "m_ScreenMaximized": "0",
                 },
             )
@@ -309,12 +302,12 @@ class CustomSettings:
             base_dir / "EDXX/Settings/Screen.txt",
             {
                 "m_ScreenNumber": "0",
-                "m_ScreenPosition": "6",
+                "m_ScreenPosition": "0",
                 "m_ScreenMaximized": "0",
-                "m_MetarListX": "1328",
-                "m_MetarListY": "45",
-                "m_ControllerListX": "2337",
-                "m_ControllerListY": "45",
+                "m_MetarListX": "1431",
+                "m_MetarListY": "44",
+                "m_ControllerListX": "2425",
+                "m_ControllerListY": "44",
             },
         )
 
@@ -327,7 +320,7 @@ class CustomSettings:
         # TopSky window positions
         self.update_file(
             base_dir / "EDXX/Plugins/TopSky/TopSkySettings.txt",
-            {"Window_QNHTL": "3,1422,974", "Window_FlightPlanSelect": "3,500,45"},
+            {"Window_QNHTL": "0,1422,974", "Window_FlightPlanSelect": "3,500,45"},
             delimiter="=",
         )
 
@@ -346,7 +339,7 @@ class CustomSettings:
         )
 
     # ============================================================================
-    # HELPER METHODS - USE THESE TO CREATE YOUR OWN CUSTOMIZATIONS
+    # HELPER METHODS - USE THESE TO CREATE CUSTOMIZATIONS
     # ============================================================================
 
     def update_file(
