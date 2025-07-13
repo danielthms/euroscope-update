@@ -34,7 +34,7 @@ euroscope_app = {programfiles_x86}\\EuroScope
 backup_dir = {userprofile}\\AppData\\Roaming\\EuroScope\\_Backups
 
 # NavData directory (optional - for Navigraph users)
-navdata_dir = {userprofile}\\AppData\\Roaming\\EuroScope\\_NavData\\Bin
+navdata_dir = # {userprofile}\\AppData\\Roaming\\EuroScope\\_NavData\\Bin
 
 # Custom files directory (optional)
 custom_files_dir = {userprofile}\\AppData\\Roaming\\EuroScope\\_Custom

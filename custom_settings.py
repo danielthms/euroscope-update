@@ -228,7 +228,7 @@ class CustomSettings:
             base_dir / "EDMM/Settings/iCAS2/Screen.txt",
             {
                 "m_ScreenNumber": "0",
-                "m_ScreenPosition": "6",
+                "m_ScreenPosition": "0",
                 "m_ScreenMaximized": "0",
                 "m_MetarListX": "1431",
                 "m_MetarListY": "45",
@@ -241,7 +241,7 @@ class CustomSettings:
             base_dir / "EDMM/Settings/TWR_PHX/Screen.txt",
             {
                 "m_ScreenNumber": "0",
-                "m_ScreenPosition": "6",
+                "m_ScreenPosition": "0",
                 "m_ScreenMaximized": "0",
                 "m_MetarListX": "1431",
                 "m_MetarListY": "45",
@@ -331,7 +331,7 @@ class CustomSettings:
             base_dir / "EXCXO/Settings/Screen Layout.txt",
             {
                 "m_ScreenNumber": "0",
-                "m_ScreenPosition": "9",
+                "m_ScreenPosition": "0",
                 "m_ScreenMaximized": "0",
                 "m_ControllerListX": "3281",
                 "m_ControllerListY": "45",
