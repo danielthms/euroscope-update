@@ -268,15 +268,15 @@ class ProfileUpdater:
     def _update_hoppie_code(self, package_info: Dict[str, str], base_dir: Path):
         if not self.config.hoppie_code:
             return
-        
+
         fir_code = package_info['fir']
-        
+
         hoppie_files = list(base_dir.rglob("**/TopSkyCPDLChoppieCode.txt"))
-        
+
         if not hoppie_files:
             print(f"   ⚠️  No Hoppie code files found in {fir_code}")
             return
-        
+
         files_updated = 0
         for hoppie_file in hoppie_files:
             try:
@@ -286,6 +286,6 @@ class ProfileUpdater:
                 files_updated += 1
             except Exception as e:
                 print(f"   ⚠️  Error updating Hoppie code in {hoppie_file.name}: {e}")
-        
+
         if files_updated > 0:
             print(f"   ✓ Updated Hoppie code in {files_updated} files")

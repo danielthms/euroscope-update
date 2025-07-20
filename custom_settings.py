@@ -220,6 +220,37 @@ class CustomSettings:
             except Exception as e:
                 print(f"      ⚠️  Error updating GRP plugin maps: {e}")
 
+        # ===== TopSky Maps - Add ACTIVE runway conditions for EDDL downwind patterns =====
+        topsky_maps_file = base_dir / "EDGG/Plugins/Topsky/EDGG/TopSkyMaps.txt"
+        if topsky_maps_file.exists():
+            try:
+                with open(topsky_maps_file, "r", encoding="iso-8859-1") as f:
+                    content = f.read()
+
+                content = re.sub(
+                    r"(MAP:DOWNWIND 05\s+COLOR:standard\s+FOLDER:EDDL\s+)(ZOOM:)",
+                    r"\1ACTIVE:RWY:ARR:EDDL05L:DEP:*\nACTIVE:RWY:ARR:EDDL05R:DEP:*\n\2",
+                    content,
+                    flags=re.MULTILINE,
+                )
+
+                content = re.sub(
+                    r"(MAP:DOWNWIND 23\s+COLOR:standard\s+FOLDER:EDDL\s+)(ZOOM:)",
+                    r"\1ACTIVE:RWY:ARR:EDDL23R:DEP:*\nACTIVE:RWY:ARR:EDDL23L:DEP:*\n\2",
+                    content,
+                    flags=re.MULTILINE,
+                )
+
+                with open(topsky_maps_file, "w", encoding="iso-8859-1") as f:
+                    f.write(content)
+
+                print(
+                    f"      ✓ Updated TopSky maps - added ACTIVE runway conditions for EDDL downwind patterns"
+                )
+
+            except Exception as e:
+                print(f"      ⚠️  Error updating TopSky maps: {e}")
+
     def _apply_edmm_settings(self, base_dir: Path):
         """EDMM-specific settings - modify as you like!"""
 
