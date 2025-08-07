@@ -198,8 +198,8 @@ class CustomSettings:
 
                 # Disable Leadin Lines for EDDL
                 content = re.sub(
-                    r"(MAP:Leadin Lines\s+AIRPORT:EDDL\s+FOLDER:Airport Layout\s+ACTIVE:)1",
-                    r"\g<1>0",
+                    r"(MAP:Leadin Lines\s+AIRPORT:EDDL\s+FOLDER:Airport Layout\s+COLOR:layout-taxiline-yellow)\s*(\n//)",
+                    r"\1\nACTIVE:0\2",
                     content,
                     flags=re.MULTILINE,
                 )
