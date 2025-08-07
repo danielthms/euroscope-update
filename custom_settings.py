@@ -204,9 +204,33 @@ class CustomSettings:
                     flags=re.MULTILINE,
                 )
 
-                # Disable Checkpoint 1 for EDDL
+                # Disable Aircraft Icons for EDDL
                 content = re.sub(
-                    r"(MAP:Checkpoint 1\s+AIRPORT:EDDL\s+FOLDER:Labels\s+ACTIVE:)1",
+                    r"(MAP:Aircraft Outlines\s+AIRPORT:EDDL\s+FOLDER:Apron Info\s+ACTIVE:)1",
+                    r"\g<1>0",
+                    content,
+                    flags=re.MULTILINE,
+                )
+
+                # Disable Checkpoint labels for EDDL
+                content = re.sub(
+                    r"(MAP:Checkpoints\s+AIRPORT:EDDL\s+FOLDER:Labels\s+ACTIVE:)1",
+                    r"\g<1>0",
+                    content,
+                    flags=re.MULTILINE,
+                )
+
+                # Disable EDDL Stand labels
+                content = re.sub(
+                    r"(MAP:Stands\s+AIRPORT:EDDL\s+FOLDER:Labels\s+ACTIVE:)1",
+                    r"\g<1>0",
+                    content,
+                    flags=re.MULTILINE,
+                )
+
+                # Disable EDDL Area labels
+                content = re.sub(
+                    r"(MAP:Areas\s+AIRPORT:EDDL\s+FOLDER:Labels\s+ACTIVE:)1",
                     r"\g<1>0",
                     content,
                     flags=re.MULTILINE,
@@ -239,6 +263,14 @@ class CustomSettings:
                     r"\1ACTIVE:RWY:ARR:EDDL23R:DEP:*\nACTIVE:RWY:ARR:EDDL23L:DEP:*\n\2",
                     content,
                     flags=re.MULTILINE,
+                )
+
+                # remove urban area from all tower profiles
+                content = re.sub(
+                    r"(MAP:Urban Area\s+FOLDER:Topography\s+ASRDATA:PHOENIX\s+LAYER:-4\s+)(ACTIVE:.*?)(\n(?=MAP:|$))",
+                    r"\1\3",
+                    content,
+                    flags=re.MULTILINE | re.DOTALL,
                 )
 
                 with open(topsky_maps_file, "w", encoding="iso-8859-1") as f:
