@@ -265,14 +265,6 @@ class CustomSettings:
                     flags=re.MULTILINE,
                 )
 
-                # remove urban area from all tower profiles
-                content = re.sub(
-                    r"(MAP:Urban Area\s+FOLDER:Topography\s+ASRDATA:PHOENIX\s+LAYER:-4\s+)(ACTIVE:.*?)(\n(?=MAP:|$))",
-                    r"\1\3",
-                    content,
-                    flags=re.MULTILINE | re.DOTALL,
-                )
-
                 with open(topsky_maps_file, "w", encoding="iso-8859-1") as f:
                     f.write(content)
 
@@ -281,7 +273,39 @@ class CustomSettings:
                 )
 
             except Exception as e:
-                print(f"      ⚠️  Error updating TopSky maps: {e}")
+                print(f"      ⚠️  Error updating Langen TopSky maps: {e}")
+
+        topsky_maps_file = base_dir / "EDGG/Plugins/Topsky/TWR_PHX_NIGHT/TopSkyMaps.txt"
+        if topsky_maps_file.exists():
+            try:
+                with open(topsky_maps_file, "r", encoding="iso-8859-1") as f:
+                    content = f.read()
+
+                # remove urban area from all tower profiles
+                content = re.sub(
+                    r"(MAP:Urban Area\s+FOLDER:Topography\s+ASRDATA:PHOENIX\s+LAYER:-4\s+)ACTIVE:ID:\*:DFC,DFGW,DFGC,DFGE,DFGI,DFG,DFTC,DFTS,DFTN,DFTW,DFAN,DFAS,DFANT,DFAST:\*:\*\s+AND_ACTIVE:ID:\*:DLC,DLGE,DLGW,DLT,DLA,DLAT,DLD,BOT:\*:\*\s+AND_ACTIVE:ID:\*:DKC,DKG,DKT,DKA,DKAT,NOR:\*:\*(\s+COLOR:)",
+                    r"\1ACTIVE:0\2",
+                    content,
+                    flags=re.MULTILINE,
+                )
+
+                # remove highway from all tower profiles
+                content = re.sub(
+                    r"(MAP:Highways\s+FOLDER:Topography\s+ASRDATA:PHOENIX\s+LAYER:-2\s+COLOR:topo_road\s+STYLE:Solid:1\s+)ACTIVE:ID:\*:DFC,DFGW,DFGC,DFGE,DFGI,DFG,DFTC,DFTS,DFTN,DFTW,DFAN,DFAS,DFANT,DFAST:\*:\*\s+AND_ACTIVE:ID:\*:DLC,DLGE,DLGW,DLT,DLA,DLAT,DLD,BOT:\*:\*\s+AND_ACTIVE:ID:\*:DKC,DKG,DKT,DKA,DKAT,NOR:\*:\*(\s+COORD:)",
+                    r"\1ACTIVE:0\2",
+                    content,
+                    flags=re.MULTILINE,
+                )
+
+                with open(topsky_maps_file, "w", encoding="iso-8859-1") as f:
+                    f.write(content)
+
+                print(
+                    f"      ✓ Updated TopSky maps for TWR PHX - removed urban area and highway"
+                )
+
+            except Exception as e:
+                print(f"      ⚠️  Error updating TWR TopSky maps: {e}")
 
     def _apply_edmm_settings(self, base_dir: Path):
         """EDMM-specific settings - modify as you like!"""
