@@ -157,6 +157,9 @@ self.update_profiles(base_dir, "*TWR*.prf", {'setting': 'value'})
 # Find and replace text
 self.replace_in_file(file_path, r'old_text', 'new_text')
 
+# Add lines at the end of a file
+self.add_lines_to_file(file_path, ['line1', 'line2',])
+
 # Copy files around
 self.copy_file(source_file, target_file)
 ```

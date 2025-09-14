@@ -553,6 +553,29 @@ class CustomSettings:
         except Exception as e:
             print(f"      ⚠️  Error updating {file_path.name}: {e}")
 
+def add_lines_to_file(self, file_path: Path, lines_to_add):
+        """
+        Add lines at the end of any file
+        Args:
+            file_path: Path to the file
+            lines_to_add: The lines you want to add
+        Example:
+            self.add_lines_to_file(file_path, ['line1', 'line2',])
+        """
+        if not file_path.exists():
+            return
+
+        try:
+            with open(file_path, "a", encoding="iso-8859-1") as f:
+                f.write("\n")
+                for line in lines_to_add:
+                    f.write(line + "\n")
+
+            print(f"      ✓ Added {len(lines_to_add)} lines in {file_path.name}")
+
+        except Exception as e:
+            print(f"      ⚠️  Error updating {file_path.name}: {e}")
+
     def copy_file(self, source: Path, target: Path):
         """Copy a file - useful for custom file operations"""
         try:
