@@ -553,7 +553,7 @@ class CustomSettings:
         except Exception as e:
             print(f"      ⚠️  Error updating {file_path.name}: {e}")
 
-def add_lines_to_file(self, file_path: Path, lines_to_add):
+    def add_lines_to_file(self, file_path: Path, lines_to_add):
         """
         Add lines at the end of any file
         Args:
